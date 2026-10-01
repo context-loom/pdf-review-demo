@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document Review</title>
+  <link rel="stylesheet" href="./vendor/pdf_viewer.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header><div class="brand">Document Review</div><button id="settings-open" aria-label="Einstellungen" title="Einstellungen">⚙</button></header>
+  <main>
+    <section class="viewer" aria-label="PDF-Prüfung">
+      <div class="toolbar">
+        <div class="toolbar-row view-row" role="group" aria-label="Ansicht"><span class="group-title">Ansicht</span><div class="group"><button id="previous" disabled aria-label="Vorherige Seite">←</button><output id="page-number">– / –</output><button id="next" disabled aria-label="Nächste Seite">→</button><label>Seite <input id="page-input" type="number" min="1" value="1" disabled></label></div><label>Zoom <select id="zoom" disabled><option value="0.75">75 %</option><option value="1" selected>100 %</option><option value="1.5">150 %</option><option value="2">200 %</option><option value="page-width">Seitenbreite</option><option value="page-fit">Ganze Seite</option></select></label><div class="group zoom-buttons"><button id="zoom-out" disabled aria-label="Verkleinern um 15 Prozentpunkte" title="−15 Prozentpunkte">−</button><button id="zoom-in" disabled aria-label="Vergrößern um 15 Prozentpunkte" title="+15 Prozentpunkte">+</button></div><span class="hint zoom-hint">Strg+Mausrad für Zoom</span><div class="group"><button id="rotate-left" disabled aria-label="Seite nach links drehen">↶</button><button id="rotate-right" disabled aria-label="Seite nach rechts drehen">↷</button></div></div>
+        <div class="toolbar-row" role="group" aria-label="Werkzeuge"><label id="review-option">Markierung <select id="review-result" aria-label="Markierung" disabled></select></label><div class="group tools-group"><button id="move" disabled aria-pressed="false">Auswählen</button><button id="highlight" disabled aria-pressed="true">Highlight</button><button id="strikeout" disabled aria-pressed="false">Durchstreichen</button><button id="checkmark" disabled aria-pressed="false">Prüfmarke</button><button id="box" disabled aria-pressed="false">Box</button><button id="circle" disabled aria-pressed="false">Kreis</button><button id="arrow" disabled aria-pressed="false">Pfeil</button><button id="stamp" disabled aria-pressed="false">Stempel</button><button id="text" disabled aria-pressed="false">Text</button><button id="help-open" popovertarget="tool-help" aria-label="Werkzeughilfe" title="Werkzeughilfe">?</button></div>
+          <div id="tool-options" class="group tool-options" role="group" aria-label="Werkzeugoptionen">
+            <div id="color-option" class="group"><span>Farbe</span><input id="color" type="hidden" value="#3366ff"><div id="drawing-palette" class="palette" role="group" aria-label="Zeichenfarbe"></div></div>
+            <label id="checkmark-option" hidden>Prüfmarkenform <select id="checkmark-shape" disabled><option value="plain">Ohne Spitze</option><option value="pointed">Mit Spitze</option></select></label>
+            <label id="circle-option" hidden>Kreisverfahren <select id="circle-method" disabled><option value="bounds">Ellipse / Box</option><option value="center">Kreis / Mittelpunkt</option><option value="square">Kreis / Box (2 Klicks)</option></select></label>
+            <div id="stamp-option" class="group" hidden><label>Stempelvorlage <select id="stamp-select" disabled></select></label><button id="manage-stamps" type="button">Verwalten</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="tool-description" aria-label="Bedienhinweis"><strong>Bedienhinweis:</strong><span id="tool-hint" class="hint"><span id="status" role="status" aria-live="polite">Test-PDF wird geladen …</span></span></div>
+      <div class="workspace"><div id="pdf-page"><canvas aria-label="PDF-Seitenbild"></canvas><div id="text-layer" class="textLayer"></div><div id="annotation-layer" aria-hidden="true"></div></div></div>
+    </section>
+    <div id="panel-resizer" role="separator" aria-label="Panelbreite" aria-orientation="vertical" aria-valuemin="240" aria-valuemax="700" aria-valuenow="320" tabindex="0"></div>
+    <aside>
+      <div class="mouse-position"><strong>Mausposition auf dem PDF</strong><pre id="mouse-coordinates">–</pre></div>
+      <details id="page-information"><summary>Seiteninformationen</summary><pre id="page-information-text">–</pre><output id="orientation" aria-label="Drehung relativ zur Datei">0° zur Datei</output></details>
+      <details id="document-json"><summary>Dokumentzustand mit Seitendrehung (JSON)</summary><pre id="review-state">{}</pre></details>
+      <h1>Prüfmarkierungen</h1><button id="checkmark-summary" disabled>Prüfmarken-Sammelbox</button>
+      <div class="panel-tabs" role="group" aria-label="Panelansicht"><button id="panel-list" aria-pressed="true">Liste</button><button id="panel-detail" aria-pressed="false">Details</button></div>
+      <div id="list-view"><section id="annotation-list"><h2>Markierungen auf dieser Seite</h2><ul id="annotations"></ul></section></div>
+      <div id="detail-view" hidden><h2>Ausgewähltes Element</h2><ul id="selected-annotation"></ul><details id="selected-json"><summary>Ausgewähltes Element (JSON)</summary><pre id="selected-state">null</pre></details><details id="annotation-json"><summary>Annotationen (JSON)</summary><pre id="state">[]</pre></details></div>
+    </aside>
+  </main>
+  <dialog id="settings"><div class="dialog-title"><h2>Einstellungen</h2><button id="settings-close" aria-label="Einstellungen schließen">×</button></div>
+      <details id="stamp-defaults"><summary>Stempel-Standardwerte / Platzhalter</summary>
+        <label>Name <input id="stamp-default-name" maxlength="120"></label>
+        <label>Kürzel <input id="stamp-default-initials" maxlength="30"></label>
+        <label><input id="stamp-default-auto-date" type="checkbox">Aktuelles Datum verwenden</label>
+        <label>Datum <input id="stamp-default-date" type="date"></label>
+        <label>Weitere Platzhalter (Schlüssel=Wert, eine Zeile je Feld)<textarea id="stamp-default-custom" rows="3" placeholder="project=Musterauftrag"></textarea></label>
+        <p>Im Stempeltext: <code>{{name}}</code>, <code>{{initials}}</code>, <code>{{date}}</code> (TT.MM.JJJJ), <code>{{date_iso}}</code> (JJJJ-MM-TT). <code>{{user}}</code> und <code>{{reviewer}}</code> verwenden den Namen. Eigene Felder z. B. <code>{{project}}</code>. Unbekannte Platzhalter bleiben sichtbar.</p>
+        <p>Werte werden beim Platzieren eingesetzt. Bereits gesetzte Stempel bleiben unverändert.</p><p id="stamp-defaults-status" role="status"></p>
+      </details>
+      <details id="stamp-manager" open><summary>Stempel verwalten</summary><div id="stamp-templates"></div><form id="stamp-add"><label>Neuer Stempeltext <input id="stamp-label" maxlength="40" required></label><div><span>Stempelfarbe</span><input id="stamp-color" type="hidden" value="#c52222"><div id="new-stamp-palette" class="palette" role="group" aria-label="Stempelfarbe"></div></div><button type="submit">Stempel hinzufügen</button></form></details>
+    <label class="import-label">Stempel importieren (SVG / JSON)<input id="stamp-import" type="file" accept=".svg,.json,image/svg+xml,application/json" multiple></label><button id="stamp-export">Vorlagen als JSON exportieren</button><p id="import-result" role="status"></p>
+      <p>Farbwahl wirkt auf SVG-Bestandteile mit <code>currentColor</code>. Eigene SVG-Farben bleiben erhalten. Platzierte Stempel ändern sich nicht durch spätere Vorlagenbearbeitung.</p><p class="notice">Markierungen und Seitendrehungen bleiben nur im Arbeitsspeicher. Stempelvorlagen und Standardwerte werden lokal in diesem Browser gespeichert; JSON-Export dient als Sicherung.</p>
+  </dialog>
+  <div id="tool-help" popover><h2>Werkzeuge und Farben</h2><div id="color-legend" role="group" aria-label="Farblegende"></div><p>Hinweis ist eine eigene Markierungsart. Bei Hinweis sind Blau, Gelb, Grau und Schwarz frei wählbar.</p><p>Highlight / Durchstreichen: Text auswählen; die Position bleibt textgebunden. Durchstreichen steht nur bei „Nicht in Ordnung“ zur Verfügung.</p><p>Box / Ellipse: klicken und aufziehen. Kreis / Mittelpunkt: Mittelpunkt, dann Radius klicken. Kreis / Box: gegenüberliegende Ecken klicken; die Umgrenzung wird quadratisch erweitert. Pfeil: Spitze, dann Richtung klicken; immer 40 pt, Farbe gemäß Markierung. Prüfmarke ohne Spitze / Stempel: einmal klicken. Prüfmarke mit Spitze: Spitze klicken, dann Richtung zum Nummernkreis klicken; feste Größe.</p><p>Auswählen: Element greifen und ziehen. Strg+Ziehen verschiebt freie Elemente in jedem Werkzeug. Strg+Mausrad zoomt. Escape bricht eine laufende Aktion ab und wechselt zu Auswählen. Erneutes Escape kehrt zum letzten verfügbaren Werkzeug zurück. Fixierte Elemente bleiben gesperrt. Boxen haben acht Größenmarker.</p><p>Verbundene Hinweisbox: in Details zu Box, Kreis, Prüfmarke oder Pfeil hinzufügen. Text und Farbe folgen der Markierung; Box separat verschieben und skalieren. Prüfmarken-Sammelbox: alle Prüfmarken dieser Seite mit Nummer und Begründung, automatisch aktualisiert. Text: Position klicken, Text rechts eingeben; transparenter Hintergrund.</p><p>Koordinaten: Ursprung oben links; pt unabhängig vom Zoom, zusätzlich normiert auf 0–1.</p></div>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
+

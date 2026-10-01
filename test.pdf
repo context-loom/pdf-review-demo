@@ -1,0 +1,50 @@
+%PDF-1.7
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 326 >>
+stream
+BT /F1 22 Tf 60 770 Td (Document Review - Test PDF) Tj ET
+BT /F1 14 Tf 60 720 Td (Review this clause before approval.) Tj ET
+BT /F1 14 Tf 60 692 Td (The supplier checks the drawing.) Tj ET
+BT /F1 14 Tf 60 664 Td (Deviations require written approval.) Tj ET
+BT /F1 12 Tf 60 610 Td (Synthetic fixture - no customer data.) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 236 >>
+stream
+BT /F1 22 Tf 60 525 Td (Drawing Review - Landscape) Tj ET
+BT /F1 14 Tf 60 475 Td (Nominal dimension: 20 mm) Tj ET
+BT /F1 14 Tf 60 447 Td (Tolerance: +/- 0.1 mm) Tj ET
+BT /F1 12 Tf 60 395 Td (Place an approval stamp on this page.) Tj ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000121 00000 n 
+0000000191 00000 n 
+0000000317 00000 n 
+0000000693 00000 n 
+0000000819 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+1105
+%%EOF
