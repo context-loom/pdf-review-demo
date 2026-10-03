@@ -461,9 +461,29 @@ workspace.addEventListener('wheel', event => {
     workspace.scrollTop += box.top + anchor.y * box.height - mouseY;
   });
 }, { passive: false });
-try {
-  documentPdf = await getDocument({ url: new URL('./test.pdf', import.meta.url).href, standardFontDataUrl: new URL('./vendor/standard_fonts/', import.meta.url).href, isEvalSupported: false }).promise;
-  orientations = createPageOrientations(documentPdf.numPages);
-  await renderPage();
-} catch (error) { fail(error); }
+async function loadTestPdf() {
+  if (busy && documentPdf) return;
+  busy = true;
+  controls();
+  element('load-test-pdf').disabled = true;
+  element('status').textContent = 'Test-PDF wird geladen …';
+  try {
+    documentPdf = await getDocument({
+      url: new URL('./test.pdf', import.meta.url).href,
+      standardFontDataUrl: new URL('./vendor/standard_fonts/', import.meta.url).href,
+      isEvalSupported: false
+    }).promise;
+    pageNumber = 1;
+    orientations = createPageOrientations(documentPdf.numPages);
+    await renderPage();
+  } catch (error) {
+    fail(error);
+  } finally {
+    element('load-test-pdf').disabled = false;
+  }
+}
+
+element('load-test-pdf').addEventListener('click', () => { void loadTestPdf(); });
+busy = false;
+controls();
 
