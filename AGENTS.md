@@ -49,11 +49,17 @@ Der Index soll **vollständig genug zum Entdecken, aber knapp genug als Inhaltsv
 
 ### Housekeeping
 
-Für jede agentische Bearbeitung gelten zusätzlich die zentralen Aufräum- und Abschlussregeln in:
+Für jede agentische Bearbeitung gelten zusätzlich die lokalen, synchronisierten Aufräum- und Abschlussregeln in:
 
-`context-loom/.github/housekeeping.md`
+`.context-loom/housekeeping.md`
 
-Vor Abschluss einer Änderung insbesondere Repository-Zustand, Bearbeitungsreste, obsolete oder doppelte Inhalte, Tests/Build, Dokumentation, Navigation und den vollständigen eigenen Diff prüfen.
+Bei einem ausdrücklich beauftragten **Housekeeping Review** oder **Housekeeping Audit** gilt zusätzlich:
+
+`.context-loom/housekeeping-audit.md`
+
+Die kanonischen Quellen dieser Dateien liegen in `context-loom/.github/`. Die lokalen Kopien werden synchronisiert und nicht repo-spezifisch verändert.
+
+Vor Abschluss einer normalen Änderung insbesondere Repository-Zustand, Bearbeitungsreste, obsolete oder doppelte Inhalte, Tests/Build, Dokumentation, Navigation und den vollständigen eigenen Diff prüfen.
 
 ### Allgemeine Hygiene
 
