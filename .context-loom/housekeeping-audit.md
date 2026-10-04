@@ -90,6 +90,71 @@ Für eigenständige Repositories zusätzlich prüfen:
 - zusammenführungs- oder archivierungsreif;
 - Demo-/Mirror-/Deploy-Rolle weiterhin korrekt abgegrenzt.
 
+### Audit – organisation-scoped
+
+Ein organisationsweiter Housekeeping Audit betrachtet **Context Loom als zusammenhängenden Bestand**: alle Repositories, die `_workbench`, den zentralen Index und die organisationsweiten Vorgaben.
+
+Ziel:
+
+> Übergreifende Drift, Redundanzen, Lücken und unklare Zuständigkeiten sichtbar machen, die innerhalb eines einzelnen Repositories nicht erkennbar sind.
+
+Mindestens prüfen:
+
+#### Repository-Landschaft
+- sind alle aktiven Repositories im zentralen `INDEX.md` erfasst;
+- stimmen Name, Zweck und fachliche Gruppierung noch;
+- gibt es Repositories mit stark überlappendem oder inzwischen identischem Zweck;
+- gibt es verwaiste, ersetzte, experimentelle oder nur noch historische Repositories;
+- sind Demo-, Deploy-, Mirror-, Infrastruktur- und Quell-Repositories klar voneinander abgegrenzt;
+- gibt es sinnvolle Kandidaten für Zusammenführung, Archivierung oder Aufteilung.
+
+#### Workbench und Lebenszyklus
+- sind wesentliche Themen aus `_workbench` im Index auffindbar;
+- liegen Themen noch sinnvoll in `_workbench` oder sind sie auslagerungsreif;
+- existieren Workbench-Themen parallel zu bereits ausgelagerten Repositories;
+- gibt es thematisch doppelte oder stark überlappende Workbench-Dateien;
+- sind veraltete, aufgegebene oder rein historische Ansätze entsprechend erkennbar;
+- fehlen für erkennbare Themen geeignete Ziel-Repositories oder Zusammenführungen.
+
+#### Übergreifende Architektur und Standards
+- widersprechen sich Architekturentscheidungen zwischen verwandten Repositories ohne erkennbare Begründung;
+- werden gemeinsame Standards aus `software-engineering-standards` angewendet oder Abweichungen bewusst dokumentiert;
+- entstehen gleiche technische Grundbausteine mehrfach ohne bewusste Wiederverwendungsentscheidung;
+- gibt es wiederkehrende Muster, die als gemeinsamer Standard, Template, Tool oder Bibliothek zentralisiert werden sollten;
+- sind organisationsweite Namens-, Struktur- und Dokumentationskonventionen noch zweckmäßig.
+
+#### Agentische Governance
+- Root-`AGENTS.md` in allen relevanten Repositories vorhanden;
+- Shared-Block organisationsweit aktuell und konsistent;
+- `.context-loom/housekeeping.md` und `.context-loom/housekeeping-audit.md` überall synchron;
+- organisationsweite Regeln stehen in `.github`, repo-spezifische Regeln lokal;
+- lokale Regeln widersprechen organisationsweiten Vorgaben nicht unbeabsichtigt;
+- Sync-Skript und Governance-Dokumentation entsprechen dem tatsächlich verwendeten Verteilungsmodell.
+
+#### Wissen und Dokumentation
+- ist relevantes Wissen auffindbar oder über mehrere Repositories/Workbench-Dateien unnötig fragmentiert;
+- existieren widersprüchliche Beschreibungen desselben Systems oder Konzepts;
+- gibt es mehrfach gepflegte Listen, Übersichten oder Architekturabbildungen ohne klare Source of Truth;
+- sind zentrale Querverweise zwischen eng verwandten Projekten vorhanden;
+- ist der zentrale Index knapp genug für Navigation und vollständig genug zum Entdecken.
+
+#### Gemeinsame technische Abhängigkeiten
+- werden dieselben externen Dienste, Bibliotheken oder Infrastrukturkomponenten in vielen Repositories unterschiedlich und womöglich veraltet beschrieben;
+- gibt es organisationsweit bekannte abgekündigte oder ersetzte Komponenten;
+- sind gemeinsam genutzte Integrationen, Gateways oder Betriebswege konsistent dokumentiert;
+- entstehen unnötige parallele Betriebs- oder Deployment-Muster.
+
+#### Audit-Ergebnis auf Organisationsebene
+
+Zusätzlich zu einzelnen Findings sollte ein organisationsweiter Audit eine kompakte **Portfolio-Sicht** liefern:
+
+- Repositories: `keep | merge | split | archive | investigate`;
+- Workbench-Themen: `keep | promote | merge | archive | investigate`;
+- organisationsweite Vorgaben: `current | update needed`;
+- erkannte gemeinsame Standards oder Komponenten mit Zentralisierungspotenzial.
+
+Ein organisationsweiter Audit darf Repositories oder Workbench-Themen **nicht allein aufgrund geringer Aktivität** als obsolet einstufen. Zweck, fachlicher Wert, Historie und Abhängigkeiten sind mit zu berücksichtigen.
+
 ## Finding-Format
 
 Findings möglichst in folgender Struktur dokumentieren:
